@@ -1,0 +1,37 @@
+---
+description: Use when preparing a commit message
+globs: 
+alwaysApply: false
+---
+# 🛠️ Commit Message Convention
+
+Use simple, consistent, and readable commit messages to keep the project fast-moving and professional.
+
+
+## Format
+[type]: [short summary]
+[optional longer description if needed]
+
+
+
+## Accepted Types
+- `feat`: New feature
+- `fix`: Bug fix
+- `chore`: Minor maintenance (no feature/bugfix)
+- `refactor`: Code change that doesn't add features or fix bugs
+- `style`: UI tweaks, layout changes, or CSS updates
+- `docs`: Documentation changes
+- `perf`: Performance improvements
+- `test`: Adding or updating tests
+
+## Examples
+feat: add standings page with API connection
+fix: correct typo in team schema
+refactor: restructure scraper utilities for clarity
+style: adjust padding on header navigation
+chore: update README with new setup instructions
+## Key Principles
+- Keep it short and meaningful.
+- Focus on **what changed**, not **how** it changed.
+- Use lowercase for `[type]`.
+- No unnecessary words — be clear, direct, and useful.

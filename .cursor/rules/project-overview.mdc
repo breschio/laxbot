@@ -1,0 +1,42 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Laxbot 1.0 Overview
+
+**Laxbot 1.0** is designed to become the **default source** for **lacrosse scores, rankings, and stats** — built with a core focus on **automation, reliability, and scale**.
+
+## 🥅 Project Goals
+- **Live Data First**: Deliver the most up-to-date lacrosse scores, standings, and player stats.
+- **Fully Automated**: Build the backend to operate **without manual intervention**:
+  - Agents scrape, ingest, clean, and update data.
+  - No daily human maintenance required.
+- **Supabase Infrastructure**: Manage data storage, authentication, and user management on a scalable serverless backend.
+- **Modern Frontend**: Fast, clean React frontend built with TailwindCSS, shadcn/ui, and responsive, accessible design principles.
+- **Monorepo Architecture**: Clean separation of frontend, API, and database layers for easy scaling.
+- **Scalable Launchpad**: Lay a foundation that can later evolve into a mobile app, fantasy sports extension, and premium features (e.g., alerts, forecasts, rankings analytics).
+
+## 🔥 Core Ethos
+> **Laxbot should feel like a living organism — pulling, cleaning, updating, and presenting lacrosse data automatically — while users experience a fast, beautiful, trustworthy interface.**
+
+This is a platform **designed to run itself**, so we can **grow users, revenue, and reach without growing maintenance costs**.
+
+
+# 🏗️ Project Structure
+
+/laxbot
+│
+├── apps
+│   └── web               # Frontend app (React, Vite, TailwindCSS, shadcn/ui)
+│
+├── packages
+│   ├── api               # Backend logic (API routes, scraper agents)
+│   ├── db                # Database schema & migrations (Drizzle ORM)
+│   ├── utils             # Shared helper functions (formatting, validation, constants)
+│   └── types             # Shared TypeScript types (Teams, Players, Games, etc.)
+│
+├── package.json          # Project metadata & workspace config
+├── turbo.json            # (Optional) Turborepo build config
+├── README.md             # Project overview & setup instructions
+└── .gitignore            # Files/folders ignored by Git
