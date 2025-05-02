@@ -6,6 +6,7 @@ import puppeteer, { Browser, Page } from 'puppeteer';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
+import { argv } from 'node:process';
 
 // --- Type Definitions ---
 interface ConferenceStandingData {
@@ -269,10 +270,10 @@ async function scrapeConferenceStandings(url: string, conferenceIdentifier: stri
 }
 
 // --- Main Runner Logic ---
-async function runAllConferenceScrapers() {
-    console.log('Starting all conference scrapers...');
+async function runAllConferenceScrapers(targetConferences?: string[]) {
+    console.log('Starting conference scrapers...');
     
-    const conferences = [
+    const allConferences = [
         { name: 'ivy_league', url: 'https://ivyleague.com/standings.aspx?path=mlax' },
         { name: 'acc', url: 'https://theacc.com/standings.aspx?path=mlax' },
         { name: 'big_ten', url: 'https://bigten.org/standings.aspx?path=mlax' },
@@ -285,10 +286,24 @@ async function runAllConferenceScrapers() {
         { name: 'atlantic_10', url: 'https://atlantic10.com/standings.aspx?path=MLAX' }
     ];
 
+    // Determine which conferences to run based on arguments
+    const conferencesToRun = targetConferences && targetConferences.length > 0
+        ? allConferences.filter(conf => targetConferences.includes(conf.name))
+        : allConferences; // Run all if no specific targets provided
+
+    if (conferencesToRun.length === 0 && targetConferences && targetConferences.length > 0) {
+        console.warn('Warning: Specified target conferences not found in the configured list. Exiting.');
+        return;
+    } else if (targetConferences && targetConferences.length > 0) {
+        console.log(` -> Targeting specific conferences: ${conferencesToRun.map(c => c.name).join(', ')}`);
+    } else {
+        console.log(' -> Running for all configured conferences.');
+    }
+
     let totalUpserted = 0;
     let totalErrors = 0;
 
-    for (const conf of conferences) {
+    for (const conf of conferencesToRun) {
         const tableName = `stg_conf_${conf.name}`; 
         const data = await scrapeConferenceStandings(conf.url, conf.name);
 
@@ -317,4 +332,7 @@ async function runAllConferenceScrapers() {
 }
 
 // --- Run the Scraper ---
-runAllConferenceScrapers();
+// Get command line arguments, excluding the first two (node executable, script path)
+const targetArgs = argv.slice(2);
+
+runAllConferenceScrapers(targetArgs);

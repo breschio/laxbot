@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Layout } from '@/components/Layout';
 import ComponentsPage from '@/pages/Components';
 import Home from '@/pages/Home';
-import Standings from '@/pages/Standings';
 import Schedule from '@/pages/Schedule';
 import Rankings from '@/pages/RankingsPage';
 
@@ -14,7 +13,6 @@ const App: React.FC = () => (
         {/* All pages now use the same consistent shadcn UI layout */}
         <Route path="/" element={<Home />} />
         <Route path="/schedule" element={<Schedule />} />
-        <Route path="/standings" element={<Standings />} />
         <Route path="/rankings" element={<Rankings />} />
         <Route path="/components" element={<ComponentsPage />} />
         

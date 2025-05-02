@@ -12,7 +12,6 @@ export const Header: React.FC = () => {
       <nav className="flex items-center space-x-4">
         <NavLink href="/" isActive={location.pathname === '/'}>Home</NavLink>
         <NavLink href="/schedule" isActive={location.pathname === '/schedule'}>Schedule</NavLink>
-        <NavLink href="/standings" isActive={location.pathname === '/standings'}>Standings</NavLink>
         <NavLink href="/rankings" isActive={location.pathname === '/rankings'}>Rankings</NavLink>
         <NavLink href="/components" isActive={location.pathname === '/components'}>Components</NavLink>
         <ThemeToggle aria-label="Toggle theme" />

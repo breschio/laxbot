@@ -204,24 +204,7 @@ const RankingsPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
-
-      {/* Filter Selection Toggle Group */}
-      <ToggleGroup 
-        type="single" 
-        value={selectedFilter} 
-        onValueChange={(value) => {
-            if (value) setSelectedFilter(value); 
-        }}
-        className="flex flex-wrap justify-center gap-2"
-        aria-label="Rankings Filter" 
-      >
-        {FILTERS.map((filter) => (
-          <ToggleGroupItem key={filter} value={filter} aria-label={`Filter by ${filter}`}>
-            {filter}
-          </ToggleGroupItem>
-        ))}
-      </ToggleGroup>
+    <div className="container mx-auto px-4 pb-4">
 
       {/* Rankings Card and Table */}
       <Card>
@@ -229,6 +212,24 @@ const RankingsPage: React.FC = () => {
           <CardTitle>{selectedFilter} Rankings</CardTitle> 
         </CardHeader>
         <CardContent>
+          {/* Filter Selection Toggle Group - MOVED HERE */}
+          <ToggleGroup 
+            type="single" 
+            value={selectedFilter} 
+            onValueChange={(value) => {
+                if (value) setSelectedFilter(value); 
+            }}
+            // Removed justify-center, added padding-bottom
+            className="flex flex-wrap gap-2 pb-4" 
+            aria-label="Rankings Filter" 
+          >
+            {FILTERS.map((filter) => (
+              <ToggleGroupItem key={filter} value={filter} aria-label={`Filter by ${filter}`}>
+                {filter}
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+
           <Table>
             <TableHeader>
               <TableRow>

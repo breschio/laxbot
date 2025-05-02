@@ -1,0 +1,38 @@
+name: Scrape Big Ten & NEC Conference Standings
+
+on:
+  schedule:
+    # Runs daily at 8:05 AM UTC (5 mins after the Edge Function)
+    - cron: '5 8 * * *'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8 # Specify pnpm version if needed
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use Node.js 20 or your project's version
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Big Ten & NEC Scraper
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # Puppeteer specific env vars if needed by your setup (often not required for basic headless)
+          # PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true' 
+          # PUPPETEER_EXECUTABLE_PATH: '/usr/bin/google-chrome-stable' # If using pre-installed Chrome
+        run: pnpm exec tsx packages/api/scrapers/runners/runConferenceStandingsScraper.ts big_ten nec 
