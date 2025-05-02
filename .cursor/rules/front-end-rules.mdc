@@ -49,3 +49,22 @@ When you write code, strictly follow these rules:
 - If a component requires custom styles, use Tailwind's `@apply` in a local CSS module or within a `@layer` block, but avoid global styles.
 - Do not import or use any third-party CSS frameworks or resets (other than Tailwind's preflight).
 - All new UI work must be styled using Tailwind utility classes or shadcn/ui primitives.
+
+
+id: enforce-path-alias
+description: "Always import from '@/...' instead of relative paths under src/"
+match:
+files: ["/src//*.(ts|tsx|js|jsx)"]
+code: "import { {components} } from "../components/ui/{componentFile}""
+transform: |
+import { {{components}} } from "@/components/ui/{{componentFile}}";
+
+id: add-shadcn-ui-imports
+description: "Import new UI components from shadcn/ui when marked"
+match:
+files: ["/src//*.(ts|tsx|js|jsx)"]
+code: "// cursor: add-shadcn"
+transform: |
+import { {{components}} } from "shadcn/ui";
+
+

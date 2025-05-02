@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@laxbot/api": ["packages/api"],
+      "@laxbot/api/*": ["packages/api/*"],
+      "@api/*": ["packages/api/src/*"],
+      "@web/*": ["apps/web/src/*"],
+      "@components/*": ["apps/web/src/components/*"]
+    },
+    "resolveJsonModule": true
+  },
+  "references": [
+    { "path": "./packages/api" }
+  ]
+} 

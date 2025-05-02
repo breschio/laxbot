@@ -1,26 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { setTheme, getTheme } from '@/lib/theme';
+import { Sun, Moon, Laptop } from 'lucide-react';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from './ui/dropdown-menu'; // Assuming dropdown is in ./ui
+import { Button } from './ui/button'; // Assuming button is in ./ui
+import { Toggle } from "./toggle"
+import { SunIcon, MoonIcon } from "lucide-react"
+import { Theme, getStoredTheme, applyTheme, THEME_STORAGE_KEY } from '@web/lib/theme';
 
-const ThemeToggle: React.FC = () => {
-  const [theme, setThemeState] = useState<'light' | 'dark'>(getTheme());
+export const ThemeToggle: React.FC = () => {
+  const [theme, setTheme] = useState<Theme>(getStoredTheme());
 
   useEffect(() => {
-    setTheme(theme);
+    // Initial apply theme based on state
+    applyTheme(theme);
   }, [theme]);
 
-  const handleToggle = () => {
-    setThemeState(theme === 'dark' ? 'light' : 'dark');
+  const handleThemeChange = (newTheme: Theme) => {
+    setTheme(newTheme);
+    localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+    // Apply theme is now handled by useEffect
   };
 
   return (
-    <button
-      onClick={handleToggle}
-      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      className="ml-4 px-2 py-1 rounded bg-gray-700 text-white dark:bg-gray-200 dark:text-gray-900 transition-colors"
-    >
-      {theme === 'dark' ? '🌙' : '☀️'}
-    </button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="icon" className="w-9 h-9 rounded-full">
+          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:rotate-90 dark:scale-0" />
+          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => handleThemeChange('light')}>
+          <Sun className="mr-2 h-4 w-4" />
+          <span>Light</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleThemeChange('dark')}>
+          <Moon className="mr-2 h-4 w-4" />
+          <span>Dark</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleThemeChange('system')}>
+          <Laptop className="mr-2 h-4 w-4" />
+          <span>System</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
-};
-
-export default ThemeToggle; 
+}; 

@@ -8,12 +8,30 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm --filter './apps/**' dev",
+    "dev": "pnpm -r --parallel dev",
+    "web": "pnpm --filter web dev",
     "build": "pnpm --filter './apps/**' build",
-    "lint": "pnpm --filter './apps/**' lint"
+    "lint": "pnpm --filter './apps/**' lint",
+    "parse": "pnpm --filter api parse",
+    "scrape": "pnpm --filter api scrape",
+    "api:scrape": "pnpm --filter @laxbot/api run scrape"
   },
-  "keywords": ["lacrosse", "sports", "stats", "rankings"],
+  "keywords": [
+    "lacrosse",
+    "sports",
+    "stats",
+    "rankings"
+  ],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.9.0"
+  "packageManager": "pnpm@10.9.0",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "tsx": "^4.19.4"
+  },
+  "dependencies": {
+    "@radix-ui/react-toggle": "^1.1.6",
+    "@radix-ui/react-toggle-group": "^1.1.7",
+    "ui": "github:shadcn/ui"
+  }
 }
