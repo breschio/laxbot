@@ -25,6 +25,11 @@ jobs:
           node-version: '20' # Use Node.js 20 or your project's version
           cache: 'pnpm'
 
+      # Add this step to force HTTPS for Git
+      - name: Force Git to use HTTPS
+        run: |
+          git config --global url."https://github.com/".insteadOf git@github.com:
+
       - name: Install dependencies
         run: pnpm install
 
